@@ -48,5 +48,5 @@ def main():
 if __name__ == "__main__":
     if not os.path.isdir(FTP_ROOT):
         os.makedirs(FTP_ROOT)
-        
+
     main()
