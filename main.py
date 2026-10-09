@@ -13,6 +13,11 @@ FTP_PORT    = 2121
 USERNAME    = "user"
 PASSWORD    = "pass"
 
+# Connection limits: protect the server from clients opening too many
+# parallel connections. Refused clients get "421 Too many connections".
+MAX_CONS        = 64   # total simultaneous connections
+MAX_CONS_PER_IP = 10   # simultaneous connections from one IP address
+
 # ── Symlink-aware filesystem ──────────────────────────────────────────────────
 
 class SymlinkAwareFS(AbstractedFS):
@@ -84,8 +89,11 @@ def main():
     handler.abstracted_fs = SymlinkAwareFS
 
     server = FTPServer((FTP_HOST, FTP_PORT), handler)
+    server.max_cons = MAX_CONS
+    server.max_cons_per_ip = MAX_CONS_PER_IP
     print(f"Serving {FTP_ROOT} on {FTP_HOST}:{FTP_PORT}")
     print(f"Login: {USERNAME} / {PASSWORD}")
+    print(f"Max connections: {MAX_CONS} total, {MAX_CONS_PER_IP} per IP")
     server.serve_forever()
 
 if __name__ == "__main__":

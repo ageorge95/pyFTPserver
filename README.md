@@ -1,6 +1,11 @@
 # pyFTPserver
 Simple python FTP server with symlink support on windows.
 
+# Connection limits
+`MAX_CONS` (default 64) and `MAX_CONS_PER_IP` (default 10) in `main.py` cap the number of simultaneous connections,
+so clients using parallel transfers cannot overload the server. Extra connections are refused with
+`421 Too many connections ...`.
+
 # Disk usage (`SITE DF`)
 The server adds a custom command that reports disk space for the drive behind an FTP path:
 
