@@ -3,3 +3,5 @@
 /venv
 activate.bat
 /FTP
+/activate.ps1
+/activate.sh
